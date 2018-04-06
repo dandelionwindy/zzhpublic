@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html>
+  <head>
+	<title></title><meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" type="text/css" href="detail.css"/>
+    <script src="http://static.runoob.com/assets/vue/1.0.11/vue.min.js"></script>
+    <script src="jquery.min.js"></script>
+    <style type="text/css">
+    	
+    </style>
+  </head>
+  <body>
+	<!--<div id="example">
+  	  <my-component></my-component>
+    </div>-->
+    <!-- 最外层div 可以任意指定 主要用于定义子元素宽度 -->
+	<div class="col-xs-10" style="width:800px">
+	<!-- 表单label 添加文字提示 -->
+	  <!--<label for="" class="label-control">全文检索</label>-->
+	  <!-- 多选承接div 以后会动态添加span -->
+	  <div class="hint-input-span-container">
+	  <!-- 表单元素 用来绑定监听事件以及接收用户输入 该层上方会动态添加span -->
+		<input type="text" name="hint-search" value="" placeholder="搜索">
+	  </div>
+	  <!-- 包含下拉列表列 -->
+	  <div class="hint-block">
+	  <!-- 根据json数据包动态添加li -->
+	    <ul class="hint-ul">
+	    </ul>
+	  </div>
+	</div>
+	<script>
+		$(function(){
+			//json数据包
+			var data = {data:["变更中","未生效","作废","正常","审核中"]};
+			//获取后面需要多次调用的dom对象
+			var $hintSearch = $("input[name='hint-search']");
+			var $hintSearchContainer = $(".hint-input-span-container");
+			var $hintBlock = $(".hint-block");
+			var $hintUl = $(".hint-ul");
+			//初次调用添加词典
+			addDictionary(data.data,addUlListener);
+			//设置词典列表宽度
+			setHintSearchContainerWidth();
+			//实现响应式 监听resize事件
+			$(window).bind('resize', setHintSearchContainerWidth);
+			//获得焦点
+			$hintSearch.focus(function(){
+				animteDown();
+			});
+			//失去焦点
+			//设置延迟为了可以监听到click的响应
+			$hintSearch.blur(function(){
+				setTimeout(function(){
+					animateUp();
+				},200);
+			});
+			//TAB 与 enter事件
+			//监听tab与enter两个键位 如果input内有输入的内容，则添加span
+			//注意最后要阻止一下事件冒泡 防止跳转与切换焦点
+			$hintSearch.keydown(function(e){
+				switch (e.which) {
+				case 9: case 13:{
+				var text = $hintSearch.val();
+				console.log(text);
+				if(!$.trim(text)) {
+					$hintSearch.val("");
+					e.preventDefault();
+					return;
+				}
+				if( !checkContainerHas(text) ) {
+					$hintSearch.before('<span class="tag label label-primary">'+ text +' <i class="fa fa-times" data-role="remove"></i><i> </i></span>');
+					addSpanListenr();
+				}
+				//console.log($hintSearch.val());
+				$hintSearch.val("");
+				$hintSearch.focus();
+				e.preventDefault();
+				break;
+				}
+				default: ;
+				}
+			});
+			//检测输入配对
+			//对输入内容在li中进行匹配 如果包含字符串可以找到并返回
+			//搜索方法可以自行修改，只要保证返回一个搜索后的数组即可
+			$hintSearch.keyup(function(e){
+				var text = $hintSearch.val();
+				if (!$.trim(text)){
+					updateDictionary(data.data,addUlListener);
+				}
+				var tmparr = data.data.filter(function(x){
+					return x.indexOf(text) != -1;
+				})
+				if (tmparr.length === 0) {
+					tmparr.push("无匹配条目");
+				}
+				updateDictionary(tmparr,addUlListener);
+			})
+			//函数库
+			//添加用户常用字典库
+			function addDictionary(dataarr, callback) {
+				for(var i = 0; i < dataarr.length; i++) {
+					$hintUl.append('<li><input type="checkbox" id="awesome" />'
+					+ dataarr[i] +'</li>');
+				}
+				callback();
+			}
+			//更新搜索内容
+			function updateDictionary(dataarr,callback) {
+				$hintUl.empty();
+				addDictionary(dataarr,callback);
+			}
+			//向下滑动动画
+			//封装改变样式边框
+			function animteDown()
+			{
+				$hintBlock.slideDown('fast').css({'border':'1px solid #96C8DA','border-top' : '0px', 'box-shadow' : '0 2px 3px 0 rgba(34,36,38,.15)'});
+				$hintSearchContainer.css({'border':'1px solid #96C8DA','border-bottom' : '0px', 'box-shadow' : '0 2px 3px 0 rgba(34,36,38,.15)'});
+			}
+			//向上滑动动画
+			function animateUp()
+			{
+				$hintBlock.slideUp('fast',function(){
+				$hintSearchContainer.css({'border':'1px solid #ccc'});
+			});
+			}
+			//检验是否与输入的重复
+			function checkContainerHas(text)
+			{
+				var flag = 0;
+				$(".hint-input-span-container span").each(function(){
+					if ($.trim(text) == $.trim($(this).text())) {
+						flag = 1;
+						return;
+					}
+				});
+				return flag ? true : false;
+			}
+			//设置hint-input-span-container宽度
+			function setHintSearchContainerWidth()
+			{
+				var hint_width= $hintSearchContainer.width()+50;
+				//var hint_width = $hintSearchContainer.width() + 2 * parseInt($hintSearchContainer.css('padding-left').match(/[0-9]+/)[0]) + 2 * parseInt($hintSearchContainer.css('border-left').match(/[0-9]+/)[0]) ;
+				$hintBlock.css({'width': hint_width});
+			}
+			//绑定click事件
+			function addUlListener() {
+				$hintUl.delegate('li','click',function(){
+					var text = $(this).text();
+					if(!checkContainerHas(text)) {
+						$hintSearch.before('<span class="tag label label-primary">'+ text +' <i class="fa fa-times" data-role="remove">×</i><i> </i></span>');
+						addSpanListenr();
+					}
+					$hintSearch.val("");
+					animateUp();
+				})
+			}
+			//监听 span事件
+			function addSpanListenr() {
+				$(".hint-input-span-container span").delegate("i",'click',function(){
+					$(this).parent().remove();
+				})
+			}
+		})
+	</script>
+ </body>
+</html>

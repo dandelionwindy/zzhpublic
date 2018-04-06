@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html>
+  <head>
+	<title></title><meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script src="jquery.min.js"></script>
+    <!--<link rel="stylesheet" type="text/css" href="interview.css"/>-->
+    <style type="text/css">
+    	#ranking_title{
+    	  width: 100%;
+    	  height: 40px;
+    	  background: #2D2B3A;
+    	  color: #fff;
+    	  padding-top: 12px;
+    	}
+    	.back{
+    	  margin-left: 16px;
+    	  margin-right: 80px;
+    	}
+    	#ranking_list{
+    	  font-size: 12px;
+        color: #5A616D;
+    	}
+    	.week_rank{
+    	  font-size: 12px;
+    	  line-height:30px;
+    	  margin-left: 16px;
+        color: #5A616D;
+    	}
+    	.box_title{
+    	  
+    	  /*width: 100%;*/
+    	  line-height: 35px;
+    	  font-size: 12px;
+          border-top: 1px solid #F4F4F4;
+    	  border-bottom: 1px solid #F4F4F4;
+    	}
+    	.box{
+          height: 44px;
+    	  border-bottom: 1px solid #F4F4F4;
+    	}
+    	.box_title section{
+    	  /*float: left;*/
+    	  color: #A4A7AF;
+    	  display: inline-block;
+    	}
+    	.box section{
+    	  display: block;
+    	  float: left;
+    	  margin-top: 12px;
+    	}
+    	.row_2{
+    	  margin-left: 18%;
+    	}
+    	.row_3{
+    	  margin-left: 10%;
+    	}
+    	.row_1,.col_1{
+    	  /*width: 30px;*/
+    	  margin-left: 16px;
+    	}
+    	.col_2{
+    	  margin-left: 5px;
+    	}
+    	.col_3{
+    	  width: 50px;
+    	  margin-left: 20%;
+    	}
+    	.col_4{
+    	  width: 130px;
+    	  text-align: center;
+        margin-left: 14px;
+    	}
+    	.col_4 div{
+    	  float: left;
+    	}
+		  .circleProgress{
+		    width: 10px;
+		    height: 10px;
+		    border:5px solid transparent;
+		    border-radius: 50%;
+		    margin-left: 34%;
+		    -webkit-transform: rotate(45deg);
+			}
+			.rightcircle {
+				border-top: 5px solid #E9E9E9;
+				border-right: 5px solid #E9E9E9;
+				border-left: 5px solid #E9E9E9;
+				border-bottom: 5px solid #E9E9E9;
+			}
+			
+			.leftcircle {
+				border-bottom: 5px solid #E9E9E9;
+				border-left: 5px solid #E9E9E9;
+				border-top: 5px solid #E9E9E9;
+				border-right: 5px solid #E9E9E9;
+				left: 0;
+			}
+			.percent{
+				margin-left: 15px;
+			}
+    </style>
+  </head>
+  <body>
+	<section id="ranking"> 
+	  <section id="ranking_title">
+	    <span class="back"><返回</span><span>排行榜</span>
+	  </section>
+  	  	<section class="week_rank">
+  	  	  <span>周排行</span>
+  	  	  <span>2018-01-30</span><span>&nbsp;至&nbsp;</span><span>2018-02-06</span>
+  	  	</section>
+  	  	<section class="box_title">
+	      <section class="row_1">排名</section>
+	      <section class="row_2">前3名</section>
+	      <section class="row_3">目标完成率（订单金额）</section>
+  	  	</section>  	
+  	  <section id="ranking_list">
+        <section class="box">
+	      <section class="col_1">1</section>
+	      <section class="col_2">↑</section>
+	      <section class="col_3">王小明</section>
+	      <section class="col_4">
+	      	<div class="circleProgress rightcircle"></div>
+	      	<div class="percent" int-percent='100'>100%</div>
+	      </section>
+	    </section>
+	    <section class="box">
+	      <section class="col_1">2</section>
+	      <section class="col_2">↓</section>
+	      <section class="col_3">王小明</section>
+	      <section class="col_4">
+	      	<div class="circleProgress rightcircle"></div>
+	      	<div class="percent" int-percent='100'>100%</div>
+	      </section>
+	    </section>
+	    <section class="box">
+	      <section class="col_1">3</section>
+	      <section class="col_2">↑</section>
+	      <section class="col_3">王小明</section>
+	      <section class="col_4">
+	      	<div class="circleProgress rightcircle"></div>
+	      	<div class="percent" int-percent='100'>100%</div>
+	      </section>
+	    </section>
+	    <section class="box">
+	      <section class="col_1">4</section>
+	      <section class="col_2">↑</section>
+	      <section class="col_3">王小明</section>
+	      <section class="col_4">
+	      	<div class="circleProgress rightcircle"></div>
+	      	<div class="percent" int-percent='100'>100%</div>
+	      </section>
+	    </section>
+	    <section class="box">
+	      <section class="col_1">5</section>
+	      <section class="col_2">↓</section>
+	      <section class="col_3">王小明</section>
+	      <section class="col_4">
+	      	<div class="circleProgress rightcircle"></div>
+	      	<div class="percent" int-percent='100'>100%</div>
+	      </section>
+	    </section>
+	    <section class="box">
+	      <section class="col_1">6</section>
+	      <section class="col_2">↑</section>
+	      <section class="col_3">王小明</section>
+	      <section class="col_4">
+	      	<div class="circleProgress rightcircle"></div>
+	      	<div class="percent" int-percent='100'>100%</div>
+	      </section>
+	    </section>
+	  </section>
+   </section>
+	<script>
+	var deg = {
+		percent: 100,
+		left: 225,
+		leftBC: "#E9E9E9",
+		right: 225,
+		rightBC: "#E9E9E9"
+	};
+	var pint;
+	//json数据包
+	var data = {data:["88","82","78","69","82"]};
+	$(function() {
+		loadPercent($(".percent").attr("int-percent"));
+		console.log($(".percent").attr("int-percent"));
+		pint=refreshPercent(data);
+//  for(var i=0;i<data.data.length;i++){
+//			pint = setInterval("refreshPercent(data)", 100);
+//		}
+		pint = setInterval("refreshPercent(data)", 100);
+	});
+
+	function refreshPercent(data) {
+    var percent = $(".percent").attr("int-percent");
+    var percent_i =$(".percent");
+		//console.log(percent_i[0]);
+    if (percent>0) {
+        percent--;  
+    } else if (percent == 0){
+        percent = 100;
+    }
+    $(".percent").attr("int-percent",percent);
+    $(".percent").html(percent+"%");
+   // console.log(data.data.length);
+    for(var i=0;i<data.data.length;i++){
+    	console.log(data.data[0]);
+    	if (percent==data.data[i]) {
+        window.clearInterval(pint);
+	    }
+	    deg.percent=percent;    
+	    loadPercent(percent);
+    }
+    
+ }
+
+	function loadPercent(percent) {
+		var allDeg = countDegByPercent(percent);
+		//console.log(allDeg);
+		if(allDeg >= 180) {
+		console.log(allDeg);
+			var tmpDeg = allDeg - 180;
+			deg.left = 45 + tmpDeg;
+			deg.right = 225
+			deg.leftBC = "#5296F1";
+			deg.rightBC = "#5296F1";
+		} else {
+			deg.right = 45 + allDeg;
+			deg.rightBC = "#5296F1";
+			deg.leftBC = "#E9E9E9";
+		}
+		console.log(deg);
+		$(".circleProgress.rightcircle").css({
+			"-webkit-transform": "rotate(" + deg.right + "deg)",
+			"border-left": "5px solid " + deg.rightBC,
+			"border-bottom": "5px solid " + deg.rightBC
+		});
+		$(".circleProgress.leftcircle").css({
+			"-webkit-transform": "rotate(" + deg.left + "deg)",
+			"border-top": "5px solid " + deg.leftBC,
+			"border-right": "5px solid " + deg.leftBC
+		});
+  }
+	function countDegByPercent(percent) {
+    return percent*3.6;
+  }
+	</script>
+ </body>
+</html>
